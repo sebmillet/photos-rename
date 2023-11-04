@@ -19,6 +19,9 @@
 #    You should have received a copy of the GNU General Public License along with
 #    'photos-rename'. If not, see <https://www.gnu.org/licenses/>.
 
+# Version history
+#   0.5      Initial writing
+#   0.9      Pre-release, can do the renaming, provides options -e, -z, -e, -v
 use utf8;
 use 5.016;
 
@@ -27,7 +30,7 @@ use warnings;
 
 use Readonly;
 
-Readonly my $VERSION => '0.5';
+Readonly my $VERSION => '0.9';
 
 # MANAGE INPUT: raw extension, exif field name and format of image datetime
 
@@ -54,21 +57,44 @@ sub usage {
     my $u = <<"EOF";
 Usage: ren.pl [OPTIONS...] [DIRECTORY]
 Rename JPEG files as per their exif creation date.
-Also rename corresponding raw files if it exists.
+Also rename corresponding raw file if it exists.
 
-  -h, --help     Print this message and quit
-  -V, --version  Print version information and quit
+Raw files have the extension '$RAW_EXT'.
+
+The renaming scheme is '$NEW_NAME_BASE_FORMAT' (strftime format).
+  Example of target name: 2023_0803_150850.JPG for a photo taken
+  August 3rd 2023 at 15:08:50.
+  You may update the variable \$NEW_NAME_BASE_FORMAT in this script to change it.
+
+When multiple files have the same target name, rename with appendicies 'a', 'b' and so on.
+
+  -y, --yes       Don't ask for confirmation before renaming
+  -z              Dry run (don't rename files)
+  -e, --extension Enforce renamed file extension. Can be jpeg or jpg or any combination
+                  with upper case and lower case letters (JPEG, Jpeg, JPG, Jpg, JpEg, JpG,
+                  ...)
+                  Applies only to main file (jpeg).
+                  Raw file, if it exists, is renamed keeping its extension as is.
+  -v, --verbose   More verbose output
+  -h, --help      Print this message and quit
+  -V, --version   Print version information and quit
 EOF
     print( STDERR $u );
 }
 
-my ( $opt_help, $opt_version, $opt_debug );
+my ( $opt_dont_ask_for_confirmation,
+    $opt_dry_run, $opt_enforce_extension, $opt_verbose, $opt_help, $opt_version,
+    $opt_debug );
 
 if (
     !GetOptions(
-        'help|h'    => \$opt_help,
-        'version|V' => \$opt_version,
-        'debug|d'   => \$opt_debug
+        'y|yes'         => \$opt_dont_ask_for_confirmation,
+        'z'             => \$opt_dry_run,
+        'e|extension=s' => \$opt_enforce_extension,
+        'v'             => \$opt_verbose,
+        'help|h'        => \$opt_help,
+        'version|V'     => \$opt_version,
+        'debug|d'       => \$opt_debug
     )
   )
 {
@@ -84,12 +110,23 @@ if ( !@ARGV ) {
 }
 elsif ( @ARGV >= 2 ) {
     print STDERR "Trailing arguments. "
-      . "You can process only one directory at a time.\n";
+      . "You can process only one directory at a time. Aborted.\n";
     usage;
     exit 10;
 }
 else {
     $directory_to_process = $ARGV[0];
+}
+
+$opt_enforce_extension //= '';
+if ( $opt_enforce_extension !~ m/^\.?(?:|jpeg|jpg)$/i ) {
+    print STDERR "Not allowed extension '$opt_enforce_extension'. Aborted.\n";
+    usage;
+    exit 12;
+}
+if ( $opt_enforce_extension ne '' ) {
+    $opt_enforce_extension = '.' . $opt_enforce_extension
+      if $opt_enforce_extension !~ m/^\./;
 }
 
 # From
@@ -107,20 +144,42 @@ sub dbg() {
     print @_, "\n";
 }
 
-# Equivalent to '-f' but case insensitive no matter the OS.
+# Equivalent to '-e' but case insensitive no matter the OS.
+#
 # An optional, third parameter is to activate use of cached data.
 # USE THIS THIRD PARAMETER WITH CAUTION!
 #   When using cached data, consecutive calls for the same directory will rely
 #   on cached data (only the first call will read directory content).
-#   That means, file operations done in the directory in-between won't be
-#   reflected.
+#   THAT MEANS, FILE OPERATIONS DONE IN THE DIRECTORY IN-BETWEEN WON'T BE
+#   REFLECTED.
+#
+# About calling context
+#   If function is called in scalar context, returns 0 or 1.
+#   If function is called in list context, returns a list made of a first element, 0 or 1,
+#     and a second element that is the original name (with original case).
+#     Obviously if the file is not found (first element in the returned list is 0), the
+#     second one is undef.
 sub check_file_exists_case_insensitive() {
     state $cached_dir_name = undef;
     state %cached_dir_hash = ();
 
     my ( $dir, $file, $use_cache ) = @_;
 
-    print "dir: [$dir], file: [$file]\n";
+    # print "dir: [$dir], file: [$file]\n";
+
+    if ( $file eq '' ) {
+
+# FIXME?
+#   Not sure the below makes sense. A simple 'return 0' would be fine I guess, no
+#   matter the calling context.
+        if (wantarray) {
+            return ( 0, undef );
+        }
+        else {
+            return 0;
+        }
+
+    }
 
     $use_cache //= 0;
 
@@ -130,10 +189,7 @@ sub check_file_exists_case_insensitive() {
     {
         %cached_dir_hash = ();
 
-        # Yes, we store undef values in the hash, as we don't need more.
-        # The value doesn't matter, all we want to know later is, whether or
-        # not the key exists.
-        undef $cached_dir_hash{ lc($_) } for (<${dir}*>);
+        $cached_dir_hash{ lc($_) } = $_ for (<${dir}*>);
         $cached_dir_name = $dir;
 
         #        print STDERR "** READ DIRECTORY **\n";
@@ -142,7 +198,15 @@ sub check_file_exists_case_insensitive() {
         #        print STDERR "** use cached directory data **\n";
     }
 
-    return exists $cached_dir_hash{ lc($file) };
+    if ( !wantarray ) {
+        return exists $cached_dir_hash{ lc($file) };
+    }
+    else {
+        return (
+            exists $cached_dir_hash{ lc($file) },
+            $cached_dir_hash{ lc($file) }
+        );
+    }
 }
 
 # Convert an integer number into a 'special base-26-based' representation using
@@ -179,7 +243,9 @@ sub int_to_letters {
 #}
 #exit;
 
-&dbg("Processing directory '$directory_to_process'");
+if ($opt_verbose) {
+    print "Processing directory '$directory_to_process'\n";
+}
 
 my %targets;
 my @rename_list;
@@ -189,8 +255,12 @@ while ( my $file = glob($glob_pattern) ) {
     &dbg('');
     &dbg("-- File:          $file");
 
-    if ( $file !~ /\.(jpg|jpeg)$/i ) {
-        &dbg("   Skipped.");
+    if ( $file !~ /\.(?:jpg|jpeg)$/i ) {
+        &dbg("   Skipped (no jpeg extension).");
+        next;
+    }
+    if ( !-f $file ) {
+        &dbg("   Skipped (no regular file).");
         next;
     }
 
@@ -227,8 +297,12 @@ while ( my $file = glob($glob_pattern) ) {
     }
 
     my $raw_file = catfile( $dir, $base ) . $RAW_EXT;
-    my $has_raw_file =
+    my ( $has_raw_file, $raw_file_with_original_case ) =
       &check_file_exists_case_insensitive( $dir, $raw_file, 1 );
+    my $my_raw_ext;
+    if ($has_raw_file) {
+        $my_raw_ext = $raw_file_with_original_case =~ s/.*(\.[^.]+)$/$1/r;
+    }
 
     my $new_name_base = $image_date_obj->strftime($NEW_NAME_BASE_FORMAT);
 
@@ -240,19 +314,41 @@ while ( my $file = glob($glob_pattern) ) {
     do {
         my $dedup_postfix = &int_to_letters($dedup_int);
 
+        my $my_ext =
+          ( $opt_enforce_extension eq '' ? $ext : $opt_enforce_extension );
+
         $file_target_name =
-          catfile( $dir, $new_name_base ) . $dedup_postfix . $ext;
+          catfile( $dir, $new_name_base ) . $dedup_postfix . $my_ext;
+
+        my $alt_file_target_name =
+            catfile( $dir, $new_name_base )
+          . $dedup_postfix
+          . ( ( $my_ext =~ m/.jpg/i ) ? '.jpeg' : '.jpg' );
+
+# The below line could seem useless, but it is not.
+# When we enforce target extension (-e option of this script), for a file not
+# using target extension (for example file is 2023_0715_142000.jpg and enforced
+# extension is jpeg) the alternate file name WILL BE THE SAME as the original file
+# name.
+        $alt_file_target_name = '' if $alt_file_target_name eq $file;
+
         $file_target_exists =
-          &check_file_exists_case_insensitive( $dir, $file_target_name )
+             &check_file_exists_case_insensitive( $dir, $file_target_name )
+          || &check_file_exists_case_insensitive( $dir, $alt_file_target_name )
           || exists $targets{$file_target_name};
+
+        $file_target_exists = 0 if $file eq $file_target_name;
 
         $raw_target_exists = 0;
         if ($has_raw_file) {
             $raw_file_target_name =
-              catfile( $dir, $new_name_base ) . $dedup_postfix . $RAW_EXT;
+              catfile( $dir, $new_name_base ) . $dedup_postfix . $my_raw_ext;
             $raw_target_exists =
               &check_file_exists_case_insensitive( $dir, $raw_file_target_name )
               || exists $targets{$raw_file_target_name};
+
+            $raw_target_exists = 0
+              if $raw_file_with_original_case eq $raw_file_target_name;
         }
 
         $dedup_int++;
@@ -264,27 +360,64 @@ while ( my $file = glob($glob_pattern) ) {
 
     &dbg("   New name base: $new_name_base");
     &dbg("   Target:        $file_target_name");
-    &dbg( "   Raw name:      $raw_file ",
-        ( $has_raw_file ? '(exists)' : '(does not exist)' ) );
+    my $tmp = $raw_file_with_original_case // $raw_file;
+    &dbg( "   Raw name:      $tmp",
+        ( $has_raw_file ? ' (exists)' : ' (does not exist)' ) );
     if ($has_raw_file) {
         &dbg("   Raw target:    $raw_file_target_name");
     }
 
     push @rename_list, [ $file, $file_target_name ];
     if ($has_raw_file) {
-        push @rename_list, [ $raw_file, $raw_file_target_name ];
+        push @rename_list,
+          [ $raw_file_with_original_case, $raw_file_target_name ];
+    }
+}
+
+if ($opt_verbose) {
+    print "When actual name is identical to target name, the line is [NOOP].\n";
+    print "Verbose mode is active. NOOP lines are output.\n";
+}
+
+my $count = 0;
+for my $elem (@rename_list) {
+    my $s = $$elem[0];
+    my $d = $$elem[1];
+
+    my $do_rename = !( $s eq $d );
+    $$elem[2] = $do_rename;
+
+    ++$count if $do_rename;
+
+    if ( $opt_verbose || $do_rename ) {
+        print( ( $do_rename ? '' : '[NOOP] ' ), "$s -> $d\n" );
     }
 }
 
 &dbg('');
 
-for my $elem (@rename_list) {
-    print "$$elem[0] -> $$elem[1]\n";
+print "$count file(s) to rename.\n";
+
+if ( !$opt_dry_run && !$opt_dont_ask_for_confirmation && $count >= 1 ) {
+    print "Proceed to renaming? (y/N) ";
+    my $response = <STDIN>;
+    chomp $response;
+    if ( lc($response) ne 'y' ) {
+        print "Aborted.\n";
+        exit 100;
+    }
 }
 
-my $s0 = $rename_list[0][0];
-my $d0 = $rename_list[0][1];
-say $s0;
-say $d0;
+if ( !$opt_dry_run ) {
+    for my $elem (@rename_list) {
+        my $s         = $$elem[0];
+        my $d         = $$elem[1];
+        my $do_rename = $$elem[2];
 
-#rename $s0, $d0
+        if ($do_rename) {
+            print "$s -> $d\n";
+            rename $s, $d;
+        }
+    }
+}
+
