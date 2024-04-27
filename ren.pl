@@ -289,7 +289,7 @@ while ( my $file = glob($glob_pattern) ) {
             my $t = $exif_tool->GetTagID($_);
             my $exif_id_hexstr;
             $exif_id_hexstr = '-';
-            $exif_id_hexstr = sprintf('0x%04x', $t) if looks_like_number($t);
+            $exif_id_hexstr = sprintf( '0x%04x', $t ) if looks_like_number($t);
             print "\t\t$_ \[$exif_id_hexstr\] => $$exif_data{$_}\n";
         }
     }
