@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+set -euo pipefail
+
+F=out-actual.txt
+if [ -e "${F}" ]; then
+    echo "File '${F}' already exists!"
+    echo "Aborted."
+    exit 1
+fi
+
+./ren.pl -vdz > "${F}"
+

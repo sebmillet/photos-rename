@@ -1,0 +1,399 @@
+Processing directory '.'
+
+-- File:          ./2023_0715_142000.jpg
+   Datetime:      [2023:07:15 14:20:00]
+   New name base: 2023_0715_142000
+   Target:        ./2023_0715_142000.jpg
+   Raw name:      ./2023_0715_142000.RW2 (does not exist)
+
+-- File:          ./2023_0715_142000a.jpg
+   Datetime:      [2023:07:15 14:20:00]
+   New name base: 2023_0715_142000
+   Target:        ./2023_0715_142000a.jpg
+   Raw name:      ./2023_0715_142000a.RW2 (does not exist)
+
+-- File:          ./2023_0715_142000b.jpg
+   Datetime:      [2023:07:15 14:20:00]
+   New name base: 2023_0715_142000
+   Target:        ./2023_0715_142000b.jpg
+   Raw name:      ./2023_0715_142000b.RW2 (does not exist)
+
+-- File:          ./2023_0715_142000c.jpg
+   Datetime:      [2023:07:15 14:20:00]
+   New name base: 2023_0715_142000
+   Target:        ./2023_0715_142000c.jpg
+   Raw name:      ./2023_0715_142000c.RW2 (does not exist)
+
+-- File:          ./2023_0715_142000d.jpg
+   Datetime:      [2023:07:15 14:20:00]
+   New name base: 2023_0715_142000
+   Target:        ./2023_0715_142000d.jpg
+   Raw name:      ./2023_0715_142000d.RW2 (does not exist)
+
+-- File:          ./2023_0731_130345.jpg
+   Datetime:      [2023:08:03 15:08:22]
+   New name base: 2023_0803_150822
+   Target:        ./2023_0803_150822.jpg
+   Raw name:      ./2023_0731_130345.RW2 (does not exist)
+
+-- File:          ./2023_0731_130345a.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345aa.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345ab.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345b.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345c.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345d.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345e.JPEG
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345f.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345g.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345h.JPG
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345i.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345j.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345k.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345l.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345m.rw2
+   Skipped (no jpeg extension).
+
+-- File:          ./2023_0731_130345n.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345o.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345p.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345q.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345r.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345s.JPG
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345s.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./2023_0731_130345t.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345u.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345w.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345x.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345y.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./2023_0731_130345z.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./abc.jpg
+   Skipped (no regular file).
+
+-- File:          ./alpha
+   Skipped (no jpeg extension).
+
+-- File:          ./beta.abc.jpg
+   EXIF has no 'DateTimeOriginal' field (not a jpeg?). Skipped.
+
+-- File:          ./LICENSE
+   Skipped (no jpeg extension).
+
+-- File:          ./out-actual.txt
+   Skipped (no jpeg extension).
+
+-- File:          ./out-reference.txt
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000880.JPG
+   Datetime:      [2023:07:31 13:03:41]
+   New name base: 2023_0731_130341
+   Target:        ./2023_0731_130341.JPG
+   Raw name:      ./P1000880.RW2 (exists)
+   Raw target:    ./2023_0731_130341.RW2
+
+-- File:          ./P1000880.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000881.JPG
+   Datetime:      [2023:07:31 13:03:45]
+   New name base: 2023_0731_130345
+   Target:        ./2023_0731_130345v.JPG
+   Raw name:      ./P1000881.RW2 (exists)
+   Raw target:    ./2023_0731_130345v.RW2
+
+-- File:          ./P1000881.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000881_1.JPG
+   Datetime:      [2023:07:31 13:03:45]
+   New name base: 2023_0731_130345
+   Target:        ./2023_0731_130345m.JPG
+   Raw name:      ./P1000881_1.RW2 (does not exist)
+
+-- File:          ./P1000881_2.JPG
+   Datetime:      [2023:07:31 13:03:45]
+   New name base: 2023_0731_130345
+   Target:        ./2023_0731_130345ac.JPG
+   Raw name:      ./P1000881_2.RW2 (does not exist)
+
+-- File:          ./P1000881_3.JPG
+   Datetime:      [2023:07:31 13:03:45]
+   New name base: 2023_0731_130345
+   Target:        ./2023_0731_130345ad.JPG
+   Raw name:      ./P1000881_3.RW2 (does not exist)
+
+-- File:          ./P1000881_4.JPG
+   Datetime:      [2023:07:31 13:03:45]
+   New name base: 2023_0731_130345
+   Target:        ./2023_0731_130345ae.JPG
+   Raw name:      ./P1000881_4.RW2 (does not exist)
+
+-- File:          ./P1000881_5.JPG
+   Datetime:      [2023:07:31 13:03:45]
+   New name base: 2023_0731_130345
+   Target:        ./2023_0731_130345af.JPG
+   Raw name:      ./P1000881_5.RW2 (does not exist)
+
+-- File:          ./P1000882.JPG
+   Datetime:      [2023:07:31 13:03:50]
+   New name base: 2023_0731_130350
+   Target:        ./2023_0731_130350.JPG
+   Raw name:      ./P1000882.RW2 (exists)
+   Raw target:    ./2023_0731_130350.RW2
+
+-- File:          ./P1000882.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000883.JPG
+   Datetime:      [2023:07:31 15:57:25]
+   New name base: 2023_0731_155725
+   Target:        ./2023_0731_155725.JPG
+   Raw name:      ./P1000883.RW2 (exists)
+   Raw target:    ./2023_0731_155725.RW2
+
+-- File:          ./P1000883.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000884.JPG
+   Datetime:      [2023:07:31 15:57:35]
+   New name base: 2023_0731_155735
+   Target:        ./2023_0731_155735.JPG
+   Raw name:      ./P1000884.RW2 (exists)
+   Raw target:    ./2023_0731_155735.RW2
+
+-- File:          ./P1000884.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000885.JPG
+   Datetime:      [2023:07:31 15:57:38]
+   New name base: 2023_0731_155738
+   Target:        ./2023_0731_155738.JPG
+   Raw name:      ./P1000885.RW2 (exists)
+   Raw target:    ./2023_0731_155738.RW2
+
+-- File:          ./P1000885.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000886.JPG
+   Datetime:      [2023:07:31 15:57:46]
+   New name base: 2023_0731_155746
+   Target:        ./2023_0731_155746.JPG
+   Raw name:      ./P1000886.RW2 (exists)
+   Raw target:    ./2023_0731_155746.RW2
+
+-- File:          ./P1000886.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000887.JPG
+   Datetime:      [2023:08:03 15:05:17]
+   New name base: 2023_0803_150517
+   Target:        ./2023_0803_150517.JPG
+   Raw name:      ./P1000887.RW2 (exists)
+   Raw target:    ./2023_0803_150517.RW2
+
+-- File:          ./P1000887.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000888.JPG
+   Datetime:      [2023:08:03 15:05:22]
+   New name base: 2023_0803_150522
+   Target:        ./2023_0803_150522.JPG
+   Raw name:      ./P1000888.RW2 (exists)
+   Raw target:    ./2023_0803_150522.RW2
+
+-- File:          ./P1000888.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000889.jpeg
+   Datetime:      [2023:08:03 15:05:29]
+   New name base: 2023_0803_150529
+   Target:        ./2023_0803_150529.jpeg
+   Raw name:      ./P1000889.RW2 (exists)
+   Raw target:    ./2023_0803_150529.RW2
+
+-- File:          ./P1000889.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000890.jpg
+   Datetime:      [2023:08:03 15:05:42]
+   New name base: 2023_0803_150542
+   Target:        ./2023_0803_150542.jpg
+   Raw name:      ./P1000890.RW2 (exists)
+   Raw target:    ./2023_0803_150542.RW2
+
+-- File:          ./P1000890.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000891.JPG
+   Datetime:      [2023:08:03 15:05:59]
+   New name base: 2023_0803_150559
+   Target:        ./2023_0803_150559.JPG
+   Raw name:      ./P1000891.Rw2 (exists)
+   Raw target:    ./2023_0803_150559.Rw2
+
+-- File:          ./P1000891.Rw2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000892.JPG
+   Datetime:      [2023:08:03 15:06:54]
+   New name base: 2023_0803_150654
+   Target:        ./2023_0803_150654.JPG
+   Raw name:      ./P1000892.RW2 (does not exist)
+
+-- File:          ./P1000893.JPG
+   Datetime:      [2023:08:03 15:08:16]
+   New name base: 2023_0803_150816
+   Target:        ./2023_0803_150816.JPG
+   Raw name:      ./P1000893.RW2 (exists)
+   Raw target:    ./2023_0803_150816.RW2
+
+-- File:          ./P1000893.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000894.JPG
+   Datetime:      [2023:08:03 15:08:22]
+   New name base: 2023_0803_150822
+   Target:        ./2023_0803_150822.JPG
+   Raw name:      ./P1000894.RW2 (exists)
+   Raw target:    ./2023_0803_150822.RW2
+
+-- File:          ./P1000894.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000895.JPEG
+   Datetime:      [2023:08:03 15:08:35]
+   New name base: 2023_0803_150835
+   Target:        ./2023_0803_150835.JPEG
+   Raw name:      ./P1000895.RW2 (exists)
+   Raw target:    ./2023_0803_150835.RW2
+
+-- File:          ./P1000895.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000896.JPG
+   Datetime:      [2023:08:03 15:08:50]
+   New name base: 2023_0803_150850
+   Target:        ./2023_0803_150850.JPG
+   Raw name:      ./P1000896.RW2 (exists)
+   Raw target:    ./2023_0803_150850.RW2
+
+-- File:          ./P1000896.RW2
+   Skipped (no jpeg extension).
+
+-- File:          ./P1000897.JPG
+   Datetime:      [2023:08:03 15:09:55]
+   New name base: 2023_0803_150955
+   Target:        ./2023_0803_150955.JPG
+   Raw name:      ./P1000897.RW2 (does not exist)
+
+-- File:          ./produce-out-actual
+   Skipped (no jpeg extension).
+
+-- File:          ./README.md
+   Skipped (no jpeg extension).
+
+-- File:          ./ren.pl
+   Skipped (no jpeg extension).
+When actual name is identical to target name, the line is [NOOP].
+Verbose mode is active. NOOP lines are output.
+[NOOP] ./2023_0715_142000.jpg -> ./2023_0715_142000.jpg
+[NOOP] ./2023_0715_142000a.jpg -> ./2023_0715_142000a.jpg
+[NOOP] ./2023_0715_142000b.jpg -> ./2023_0715_142000b.jpg
+[NOOP] ./2023_0715_142000c.jpg -> ./2023_0715_142000c.jpg
+[NOOP] ./2023_0715_142000d.jpg -> ./2023_0715_142000d.jpg
+./2023_0731_130345.jpg -> ./2023_0803_150822.jpg
+./P1000880.JPG -> ./2023_0731_130341.JPG
+./P1000880.RW2 -> ./2023_0731_130341.RW2
+./P1000881.JPG -> ./2023_0731_130345v.JPG
+./P1000881.RW2 -> ./2023_0731_130345v.RW2
+./P1000881_1.JPG -> ./2023_0731_130345m.JPG
+./P1000881_2.JPG -> ./2023_0731_130345ac.JPG
+./P1000881_3.JPG -> ./2023_0731_130345ad.JPG
+./P1000881_4.JPG -> ./2023_0731_130345ae.JPG
+./P1000881_5.JPG -> ./2023_0731_130345af.JPG
+./P1000882.JPG -> ./2023_0731_130350.JPG
+./P1000882.RW2 -> ./2023_0731_130350.RW2
+./P1000883.JPG -> ./2023_0731_155725.JPG
+./P1000883.RW2 -> ./2023_0731_155725.RW2
+./P1000884.JPG -> ./2023_0731_155735.JPG
+./P1000884.RW2 -> ./2023_0731_155735.RW2
+./P1000885.JPG -> ./2023_0731_155738.JPG
+./P1000885.RW2 -> ./2023_0731_155738.RW2
+./P1000886.JPG -> ./2023_0731_155746.JPG
+./P1000886.RW2 -> ./2023_0731_155746.RW2
+./P1000887.JPG -> ./2023_0803_150517.JPG
+./P1000887.RW2 -> ./2023_0803_150517.RW2
+./P1000888.JPG -> ./2023_0803_150522.JPG
+./P1000888.RW2 -> ./2023_0803_150522.RW2
+./P1000889.jpeg -> ./2023_0803_150529.jpeg
+./P1000889.RW2 -> ./2023_0803_150529.RW2
+./P1000890.jpg -> ./2023_0803_150542.jpg
+./P1000890.RW2 -> ./2023_0803_150542.RW2
+./P1000891.JPG -> ./2023_0803_150559.JPG
+./P1000891.Rw2 -> ./2023_0803_150559.Rw2
+./P1000892.JPG -> ./2023_0803_150654.JPG
+./P1000893.JPG -> ./2023_0803_150816.JPG
+./P1000893.RW2 -> ./2023_0803_150816.RW2
+./P1000894.JPG -> ./2023_0803_150822.JPG
+./P1000894.RW2 -> ./2023_0803_150822.RW2
+./P1000895.JPEG -> ./2023_0803_150835.JPEG
+./P1000895.RW2 -> ./2023_0803_150835.RW2
+./P1000896.JPG -> ./2023_0803_150850.JPG
+./P1000896.RW2 -> ./2023_0803_150850.RW2
+./P1000897.JPG -> ./2023_0803_150955.JPG
+
+40 file(s) to rename.

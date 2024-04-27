@@ -22,15 +22,21 @@
 # Version history
 #   0.5      Initial writing
 #   0.9      Pre-release, can do the renaming, provides options -e, -z, -e, -v
+#   0.9.1    Add -d option in -h output
+#            Create --trace option (and document in -h)
+#            Dies at any warning
+#            In trace output, in the raw EXIF field output, adds EXIF tag IDs (in addition
+#            to tag names)
+
 use utf8;
 use 5.016;
 
 use strict;
-use warnings;
+use warnings FATAL => 'all';
 
 use Readonly;
 
-Readonly my $VERSION => '0.9';
+Readonly my $VERSION => '0.9.1';
 
 # MANAGE INPUT: raw extension, exif field name and format of image datetime
 
@@ -52,6 +58,7 @@ use File::Basename;
 use File::Spec::Functions 'catfile';
 use Image::ExifTool qw(:Public);
 use DateTime::Format::Strptime;
+use Scalar::Util qw(looks_like_number);
 
 sub usage {
     my $u = <<"EOF";
@@ -75,16 +82,19 @@ When multiple files have the same target name, rename with appendicies 'a', 'b' 
                   ...)
                   Applies only to main file (jpeg).
                   Raw file, if it exists, is renamed keeping its extension as is.
-  -v, --verbose   More verbose output
   -h, --help      Print this message and quit
   -V, --version   Print version information and quit
+  -v, --verbose   More verbose output
+  -d, --debug     Debug output
+      --trace     Trace output
+                  Implies -d, but produces even more output than -d
 EOF
     print( STDERR $u );
 }
 
 my ( $opt_dont_ask_for_confirmation,
     $opt_dry_run, $opt_enforce_extension, $opt_verbose, $opt_help, $opt_version,
-    $opt_debug );
+    $opt_debug,   $opt_trace );
 
 if (
     !GetOptions(
@@ -94,7 +104,8 @@ if (
         'v'             => \$opt_verbose,
         'help|h'        => \$opt_help,
         'version|V'     => \$opt_version,
-        'debug|d'       => \$opt_debug
+        'debug|d'       => \$opt_debug,
+        'trace'         => \$opt_trace
     )
   )
 {
@@ -139,8 +150,15 @@ if ( !-d $directory_to_process ) {
     exit 11;
 }
 
+$opt_debug = 1 if $opt_trace;
+
 sub dbg() {
     return unless $opt_debug;
+    print @_, "\n";
+}
+
+sub trace() {
+    return unless $opt_trace;
     print @_, "\n";
 }
 
@@ -164,8 +182,6 @@ sub check_file_exists_case_insensitive() {
     state %cached_dir_hash = ();
 
     my ( $dir, $file, $use_cache ) = @_;
-
-    # print "dir: [$dir], file: [$file]\n";
 
     if ( $file eq '' ) {
 
@@ -238,11 +254,6 @@ sub int_to_letters {
     return $ret;
 }
 
-#for (my $i = -1; $i < 800; $i++) {
-#    print "$i -> ", &int_to_letters($i), "\n";
-#}
-#exit;
-
 if ($opt_verbose) {
     print "Processing directory '$directory_to_process'\n";
 }
@@ -266,16 +277,22 @@ while ( my $file = glob($glob_pattern) ) {
 
     my ( $base, $dir, $ext ) = fileparse( $file, '\.[^.]*' );
 
-    #&dbg("     Base:           $base");
-    #&dbg("     Dir:            $dir");
-    #&dbg("     Ext:            $ext");
+    &trace("     Base:           $base");
+    &trace("     Dir:            $dir");
+    &trace("     Ext:            $ext");
 
-    my $exif_data = ImageInfo($file);
+    my $exif_tool = Image::ExifTool->new;
+    my $exif_data = $exif_tool->ImageInfo($file);
 
-    #foreach (keys %$exif_data) {
-    #    print "$_ => $$exif_data{$_}";
-    #}
-    #exit;
+    if ($opt_trace) {
+        foreach ( sort keys %$exif_data ) {
+            my $t = $exif_tool->GetTagID($_);
+            my $exif_id_hexstr;
+            $exif_id_hexstr = '-';
+            $exif_id_hexstr = sprintf('0x%04x', $t) if looks_like_number($t);
+            print "\t\t$_ \[$exif_id_hexstr\] => $$exif_data{$_}\n";
+        }
+    }
 
     my $has_exif_data = exists( $$exif_data{$EXIF_DATETIME_FIELD} );
     if ( !$has_exif_data ) {
